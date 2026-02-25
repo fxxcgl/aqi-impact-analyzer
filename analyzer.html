@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Impact Assistant</title>
+    <title>Carbon Footprint Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,21 +13,46 @@
     <div class="logo">AQI Impact</div>
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">Global Stats</a></li>
-        <li><a href="#">About AQI</a></li>
-        <li><a href="analyzer.html">AI Assistant</a></li>
+        <li><a href="analyzer.html">Calculator</a></li>
     </ul>
 </nav>
 
-<section class="assistant">
-    <h1>AI Personal Impact Assistant</h1>
+<section class="calculator">
+    <h1>Carbon Footprint Calculator</h1>
     <p class="assistant-subtitle">
-        Describe your daily activities in your own words.
+        Calculate your annual carbon emissions and discover how to reduce your environmental impact.
     </p>
 
-    <textarea id="userInput" placeholder="Example: I drive 20 km daily using a petrol car, use AC for 5 hours, and cook with LPG."></textarea>
+    <div class="card">
+        <h2>🚗 Transportation</h2>
 
-    <button onclick="analyzeImpact()" class="analyze-btn">Analyze My Impact</button>
+        <label>Car Travel (km/month)</label>
+        <input type="number" id="carKm" value="0">
+
+        <label>Public Transport (km/month)</label>
+        <input type="number" id="publicKm" value="0">
+
+        <label>Flight Hours (per year)</label>
+        <input type="number" id="flightHours" value="0">
+    </div>
+
+    <div class="card">
+        <h2>⚡ Electricity</h2>
+
+        <label>Electricity Usage (kWh/month)</label>
+        <input type="number" id="electricity" value="0">
+    </div>
+
+    <div class="card">
+        <h2>🍳 Cooking</h2>
+
+        <label>LPG Usage (cylinders/year)</label>
+        <input type="number" id="lpg" value="0">
+    </div>
+
+    <button onclick="calculateImpact()" class="analyze-btn">
+        Calculate My Impact
+    </button>
 
     <div id="results" class="results" style="display:none;">
         <div class="chart-container">
@@ -35,12 +60,13 @@
         </div>
 
         <div class="ai-output">
-            <h2>AI Analysis</h2>
+            <h2>Your Carbon Report</h2>
             <p id="analysisText"></p>
         </div>
     </div>
+
 </section>
 
-<script src="analyzer.js"></script>
+<script src="calculator.js"></script>
 </body>
 </html>
