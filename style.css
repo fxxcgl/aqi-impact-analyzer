@@ -278,3 +278,37 @@ textarea:focus {
 canvas {
     max-width: 100%;
 }
+.calculator {
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.card {
+    max-width: 800px;
+    margin: 30px auto;
+    background: rgba(31,41,55,0.9);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    color: #38bdf8;
+}
+
+.card label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: #cbd5e1;
+}
+
+.card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #111827;
+    color: white;
+}
