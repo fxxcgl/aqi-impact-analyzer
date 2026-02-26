@@ -167,3 +167,75 @@ textarea:focus {
         grid-template-columns: 1fr;
     }
 }
+
+/* Main container */
+.container {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+/* Header section */
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 18px;
+}
+
+/* Grid layout for cards */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Card styling upgrade */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    color: #16a34a;
+}
+
+.card label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 500;
+}
+
+.card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+}
+
+/* Button center alignment */
+.button-wrapper {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* Result card */
+.result-card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
