@@ -1,3 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carbon Footprint Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f4f9f6;
+            color: #1e293b;
+        }
+
+        .calculator {
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            margin-top: 15px;
+            color: #475569;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .analyze-btn {
+            background: #10b981;
+            color: white;
+            padding: 14px 40px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .analyze-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .results {
+            margin-top: 60px;
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .result-card h2 {
+            margin-top: 0;
+        }
+
+        .ai-output p {
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
 <section class="calculator">
 
     <div class="container">
@@ -46,11 +196,9 @@
             </button>
         </div>
 
-        <div id="results" class="results" style="display:none;">
+        <div id="results" class="results">
             <div class="result-card">
-                <div class="chart-container">
-                    <canvas id="impactChart"></canvas>
-                </div>
+                <canvas id="impactChart"></canvas>
             </div>
 
             <div class="result-card ai-output">
@@ -62,3 +210,9 @@
     </div>
 
 </section>
+
+<!-- Your Calculator JS -->
+<script src="calculator.js"></script>
+
+</body>
+</html>
