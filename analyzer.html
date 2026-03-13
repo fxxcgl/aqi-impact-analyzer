@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AQI Analyzer (India)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">AQI Impact</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#stats">Global Stats</a></li>
+            <li><a href="index.html#about">About AQI</a></li>
+            <li><a href="analyzer.html">AQI by City</a></li>
+        </ul>
+    </nav>
+
+    <section class="calculator">
+        <div class="container">
+
+            <div class="page-header">
+                <h1>AQI Analyzer (India)</h1>
+                <p>Select a state, then a city, and fetch live AQI from OpenWeather.</p>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="card">
+                    <h2>📍 Location</h2>
+
+                    <label for="apiKeyInput">OpenWeather API Key</label>
+                    <input id="apiKeyInput" class="control" type="password" placeholder="Paste your API key (stored only in this browser)">
+                    <div class="button-row">
+                        <button id="saveKeyBtn" class="secondary-btn" type="button">Save Key</button>
+                        <button id="clearKeyBtn" class="secondary-btn" type="button">Clear</button>
+                    </div>
+
+                    <label for="stateSelect">State / UT</label>
+                    <select id="stateSelect" class="control"></select>
+
+                    <label for="citySelect">City</label>
+                    <select id="citySelect" class="control" disabled></select>
+
+                    <div class="helper">
+                        Uses OpenWeather Geocoding + Air Pollution APIs. Your key is never committed to GitHub Pages.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🫁 Air Quality</h2>
+                    <div id="aqiPlaceholder" class="muted">
+                        Choose a city and click “Show AQI”.
+                    </div>
+                    <div id="aqiError" class="error" style="display:none;"></div>
+                    <div id="aqiResult" style="display:none;">
+                        <div class="aqi-row">
+                            <div class="aqi-pill" id="aqiPill">AQI</div>
+                            <div>
+                                <div class="aqi-title" id="aqiTitle">—</div>
+                                <div class="muted" id="aqiMeta">—</div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="pollutants" id="pollutants"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button-wrapper">
+                <button id="fetchAqiBtn" class="analyze-btn" type="button" disabled>
+                    Show AQI
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="margin: 0 auto; padding: 0 20px;">
+            <p>© 2026 AQI Impact Analyzer</p>
+        </div>
+    </footer>
+
+    <script src="aqi.js"></script>
+
+</body>
+</html>

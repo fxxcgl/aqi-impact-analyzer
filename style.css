@@ -1,0 +1,459 @@
+/* ===================================================
+   GLOBAL RESET
+=================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f9f6;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* ===================================================
+   NAVBAR
+=================================================== */
+nav {
+    background: white;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #16a34a;
+}
+
+/* ===================================================
+   SHARED CONTAINER
+=================================================== */
+.container {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+/* ===================================================
+   HERO SECTION (INDEX PAGE)
+=================================================== */
+.hero {
+    text-align: center;
+    padding: 120px 20px 100px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+.primary-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #16a34a;
+    color: white;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background: #15803d;
+    transform: translateY(-3px);
+}
+
+/* ===================================================
+   INFO SECTION
+=================================================== */
+.info-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.info-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.info-section p {
+    max-width: 800px;
+    margin: auto;
+    color: #6b7280;
+}
+
+/* ===================================================
+   STATS SECTION
+=================================================== */
+.stats-section {
+    padding: 100px 20px;
+    background: white;
+}
+
+.stats-section h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 60px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.stat-card {
+    background: #f9fafb;
+    padding: 35px;
+    border-radius: 18px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+}
+
+.stat-card h3 {
+    font-size: 32px;
+    color: #16a34a;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: #6b7280;
+}
+
+/* ===================================================
+   CHART SECTION
+=================================================== */
+.comparison-section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.chart-subtitle {
+    color: #6b7280;
+    margin-bottom: 40px;
+}
+
+.chart-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    max-width: 900px;
+    margin: auto;
+}
+
+/* ===================================================
+   CALCULATOR PAGE
+=================================================== */
+.calculator {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.calculator h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.assistant-subtitle {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 60px;
+}
+
+/* Form grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    color: #16a34a;
+}
+
+.card label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 500;
+}
+
+.card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+}
+
+/* Shared form controls (selects, etc.) */
+.control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+    background: white;
+}
+
+.control:disabled {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.secondary-btn {
+    appearance: none;
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #111827;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.secondary-btn:hover {
+    background: #f9fafb;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+.button-wrapper {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.helper {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.muted {
+    color: #6b7280;
+}
+
+.error {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.aqi-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.aqi-pill {
+    min-width: 92px;
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #f3f4f6;
+}
+
+.aqi-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 18px 0;
+}
+
+.pollutants {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.pollutant {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.pollutant-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.pollutant-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.pollutant-value .unit {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-left: 4px;
+}
+
+/* AQI colors */
+.aqi-good { background: #dcfce7; color: #14532d; }
+.aqi-fair { background: #ecfccb; color: #365314; }
+.aqi-moderate { background: #ffedd5; color: #7c2d12; }
+.aqi-poor { background: #fee2e2; color: #7f1d1d; }
+.aqi-very-poor { background: #ffe4e6; color: #881337; }
+.aqi-unknown { background: #e5e7eb; color: #111827; }
+
+/* Button */
+.analyze-btn {
+    display: block;
+    margin: 0 auto 60px;
+    background: #16a34a;
+    color: white;
+    padding: 15px 32px;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.analyze-btn:hover {
+    background: #15803d;
+    transform: translateY(-3px);
+}
+
+/* ===================================================
+   RESULTS SECTION
+=================================================== */
+.results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.result-card {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.chart-container {
+    width: 100%;
+    height: 300px;
+}
+
+.ai-output h2 {
+    margin-bottom: 15px;
+    color: #16a34a;
+}
+
+.ai-output p {
+    color: #374151;
+    line-height: 1.8;
+}
+
+/* ===================================================
+   FOOTER
+=================================================== */
+footer {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+@media (max-width: 900px) {
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        padding: 20px;
+    }
+
+    .pollutants {
+        grid-template-columns: 1fr;
+    }
+}
