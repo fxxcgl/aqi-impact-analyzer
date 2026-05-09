@@ -457,3 +457,42 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===================================================
+   POLLUTION REPORT FORM
+=================================================== */
+.report-form {
+    max-width: 760px;
+    margin: 0 auto 80px;
+}
+
+.report-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.file-control {
+    padding: 8px;
+}
+
+.report-image-preview {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    margin-top: 10px;
+}
+
+.report-success {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.report-submit {
+    margin-top: 4px;
+}
