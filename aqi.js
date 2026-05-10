@@ -74,16 +74,102 @@ function setLoading(isLoading) {
   fetchBtn.textContent = isLoading ? "Fetching..." : "Show AQI";
 }
 
-function aqiInfo(openWeatherAqiIndex) {
-  // OpenWeather AQI scale: 1..5 (good..very poor)
-  const map = {
-    1: { label: "Good", cls: "aqi-good" },
-    2: { label: "Fair", cls: "aqi-fair" },
-    3: { label: "Moderate", cls: "aqi-moderate" },
-    4: { label: "Poor", cls: "aqi-poor" },
-    5: { label: "Very Poor", cls: "aqi-very-poor" }
-  };
-  return map[openWeatherAqiIndex] || { label: "Unknown", cls: "aqi-unknown" };
+function aqiInfo(standardAqi) {
+  if (typeof standardAqi !== "number" || Number.isNaN(standardAqi)) {
+    return { label: "Unknown", cls: "aqi-unknown" };
+  }
+  if (standardAqi <= 50) return { label: "Good", cls: "aqi-good" };
+  if (standardAqi <= 100) return { label: "Satisfactory", cls: "aqi-fair" };
+  if (standardAqi <= 200) return { label: "Moderate", cls: "aqi-moderate" };
+  if (standardAqi <= 300) return { label: "Poor", cls: "aqi-poor" };
+  if (standardAqi <= 400) return { label: "Very Poor", cls: "aqi-very-poor" };
+  return { label: "Severe", cls: "aqi-very-poor" };
+}
+
+const AQI_BREAKPOINTS = {
+  pm2_5: [
+    [0, 30, 0, 50],
+    [31, 60, 51, 100],
+    [61, 90, 101, 200],
+    [91, 120, 201, 300],
+    [121, 250, 301, 400],
+    [251, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  pm10: [
+    [0, 50, 0, 50],
+    [51, 100, 51, 100],
+    [101, 250, 101, 200],
+    [251, 350, 201, 300],
+    [351, 430, 301, 400],
+    [431, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  no2: [
+    [0, 40, 0, 50],
+    [41, 80, 51, 100],
+    [81, 180, 101, 200],
+    [181, 280, 201, 300],
+    [281, 400, 301, 400],
+    [401, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  so2: [
+    [0, 40, 0, 50],
+    [41, 80, 51, 100],
+    [81, 380, 101, 200],
+    [381, 800, 201, 300],
+    [801, 1600, 301, 400],
+    [1601, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  // OpenWeather CO is in µg/m³; convert to mg/m³ for Indian AQI breakpoints.
+  co: [
+    [0, 1, 0, 50],
+    [1.1, 2, 51, 100],
+    [2.1, 10, 101, 200],
+    [10.1, 17, 201, 300],
+    [17.1, 34, 301, 400],
+    [34.1, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  o3: [
+    [0, 50, 0, 50],
+    [51, 100, 51, 100],
+    [101, 168, 101, 200],
+    [169, 208, 201, 300],
+    [209, 748, 301, 400],
+    [749, Number.POSITIVE_INFINITY, 401, 500]
+  ],
+  nh3: [
+    [0, 200, 0, 50],
+    [201, 400, 51, 100],
+    [401, 800, 101, 200],
+    [801, 1200, 201, 300],
+    [1201, 1800, 301, 400],
+    [1801, Number.POSITIVE_INFINITY, 401, 500]
+  ]
+};
+
+function interpolateAqi(value, ranges) {
+  for (const [cLow, cHigh, iLow, iHigh] of ranges) {
+    if (value >= cLow && value <= cHigh) {
+      if (!Number.isFinite(cHigh)) return iHigh;
+      const ratio = (value - cLow) / (cHigh - cLow || 1);
+      return iLow + ratio * (iHigh - iLow);
+    }
+  }
+  return null;
+}
+
+function computeStandardAqi(components) {
+  const subIndices = [];
+  for (const [pollutant, ranges] of Object.entries(AQI_BREAKPOINTS)) {
+    const raw = components?.[pollutant];
+    if (typeof raw !== "number" || Number.isNaN(raw) || raw < 0) continue;
+    const value = pollutant === "co" ? raw / 1000 : raw;
+    const sub = interpolateAqi(value, ranges);
+    if (typeof sub === "number" && !Number.isNaN(sub)) {
+      subIndices.push(sub);
+    }
+  }
+  if (!subIndices.length) return null;
+  return Math.round(Math.min(500, Math.max(...subIndices)));
 }
 
 function fmt(n) {
@@ -158,15 +244,18 @@ async function onFetchAqi() {
     const { lat, lon, name } = await geoToLatLon({ city, state });
     const air = await fetchAirQuality({ lat, lon });
 
-    const idx = air.main.aqi;
-    const info = aqiInfo(idx);
+    const standardAqi = computeStandardAqi(air.components);
+    if (typeof standardAqi !== "number") {
+      throw new Error("Standard AQI could not be computed from available pollutant data.");
+    }
+    const info = aqiInfo(standardAqi);
     pillEl.className = `aqi-pill ${info.cls}`;
-    pillEl.textContent = `AQI ${idx}`;
+    pillEl.textContent = `AQI ${standardAqi}`;
     titleEl.textContent = info.label;
 
     const ts = air.dt ? new Date(air.dt * 1000) : null;
     const when = ts ? ts.toLocaleString() : "—";
-    metaEl.textContent = `${name}, ${state} • Updated ${when}`;
+    metaEl.textContent = `${name}, ${state} • Updated ${when} • OpenWeather index ${air.main.aqi}/5`;
 
     renderPollutants(air.components);
     resultEl.style.display = "block";
