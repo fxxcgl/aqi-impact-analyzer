@@ -581,3 +581,125 @@ footer {
         max-height: 380px;
     }
 }
+
+/* ===================================================
+   CURSOR-LIKE DARK THEME OVERRIDES
+=================================================== */
+body {
+    background: #111827;
+    color: #e5e7eb;
+}
+
+nav,
+footer,
+.card,
+.result-card,
+.chart-card,
+.stat-card {
+    background: #1f2937;
+    color: #e5e7eb;
+    border: 1px solid #374151;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.logo,
+.card h2,
+.ai-output h2,
+.info-section h2,
+.stats-section h2,
+.comparison-section h2,
+.page-header h1,
+.hero h1,
+.map-list h2 {
+    color: #60a5fa;
+}
+
+nav a,
+.hero p,
+.info-section p,
+.chart-subtitle,
+.assistant-subtitle,
+.page-header p,
+.helper,
+.muted,
+footer,
+.popup-meta,
+.report-list-meta,
+.stat-card p {
+    color: #9ca3af;
+}
+
+.control,
+.card input,
+textarea,
+select {
+    background: #111827;
+    color: #e5e7eb;
+    border: 1px solid #4b5563;
+}
+
+.control:focus,
+.card input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+.analyze-btn,
+.primary-btn {
+    background: #2563eb;
+}
+
+.analyze-btn:hover,
+.primary-btn:hover {
+    background: #1d4ed8;
+}
+
+.secondary-btn {
+    background: #111827;
+    color: #e5e7eb;
+    border-color: #4b5563;
+}
+
+.secondary-btn:hover {
+    background: #1f2937;
+}
+
+#pollutionMap {
+    border-color: #4b5563;
+}
+
+.pollutant,
+.report-list li {
+    background: #111827;
+    border-color: #374151;
+}
+
+.report-list-location,
+.pollutant-value,
+.aqi-title {
+    color: #f3f4f6;
+}
+
+.report-list-type {
+    color: #cbd5e1;
+}
+
+.report-list-empty {
+    color: #9ca3af;
+    padding: 10px 2px;
+}
+
+.error {
+    background: #3f1d1d;
+    border-color: #7f1d1d;
+    color: #fecaca;
+}
+
+.report-success {
+    background: #0f2d22;
+    border-color: #14532d;
+    color: #86efac;
+}

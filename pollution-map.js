@@ -26,7 +26,7 @@ function listItemTemplate(report) {
   return `
     <li>
       <div class="report-list-location">${escapeHtml(report.locationLabel || report.location)}</div>
-      <div>${escapeHtml(report.pollutionType)}</div>
+      <div class="report-list-type">${escapeHtml(report.pollutionType)}</div>
       <div class="report-list-meta">${escapeHtml(time)}</div>
     </li>
   `;
@@ -35,7 +35,7 @@ function listItemTemplate(report) {
 function renderReportList(reports) {
   if (!reportListEl) return;
   if (!reports.length) {
-    reportListEl.innerHTML = "<li>No mapped reports yet.</li>";
+    reportListEl.innerHTML = '<li class="report-list-empty">No mapped reports yet.</li>';
     return;
   }
   reportListEl.innerHTML = reports.map(listItemTemplate).join("");
