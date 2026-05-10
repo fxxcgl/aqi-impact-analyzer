@@ -55,9 +55,18 @@ const placeholderEl = document.getElementById("aqiPlaceholder");
 const errorEl = document.getElementById("aqiError");
 const resultEl = document.getElementById("aqiResult");
 const pillEl = document.getElementById("aqiPill");
+const valueEl = document.getElementById("aqiValue");
 const titleEl = document.getElementById("aqiTitle");
 const metaEl = document.getElementById("aqiMeta");
-const pollutantsEl = document.getElementById("pollutants");
+const pm25El = document.getElementById("pm25Value");
+const pm10El = document.getElementById("pm10Value");
+const pointerEl = document.getElementById("aqiScalePointer");
+const weatherIconEl = document.getElementById("weatherIcon");
+const weatherTempEl = document.getElementById("weatherTemp");
+const weatherLabelEl = document.getElementById("weatherLabel");
+const weatherHumidityEl = document.getElementById("weatherHumidity");
+const weatherWindEl = document.getElementById("weatherWind");
+const weatherPressureEl = document.getElementById("weatherPressure");
 
 function setError(message) {
   if (!message) {
@@ -177,25 +186,48 @@ function fmt(n) {
   return n.toFixed(1);
 }
 
-function renderPollutants(components) {
-  const order = [
-    ["pm2_5", "PM2.5"],
-    ["pm10", "PM10"],
-    ["no2", "NO₂"],
-    ["o3", "O₃"],
-    ["so2", "SO₂"],
-    ["co", "CO"],
-    ["nh3", "NH₃"]
-  ];
-  pollutantsEl.innerHTML = order
-    .map(([key, label]) => {
-      const val = components?.[key];
-      return `<div class="pollutant">
-        <div class="pollutant-label">${label}</div>
-        <div class="pollutant-value">${fmt(val)} <span class="unit">µg/m³</span></div>
-      </div>`;
-    })
-    .join("");
+function fmtInt(n) {
+  if (typeof n !== "number" || Number.isNaN(n)) return "—";
+  return Math.round(n).toString();
+}
+
+function pointerLeftPercent(aqi) {
+  if (typeof aqi !== "number" || Number.isNaN(aqi)) return 0;
+  return Math.max(0, Math.min(100, (aqi / 500) * 100));
+}
+
+function renderWeather(weather) {
+  const temp = weather?.main?.temp;
+  const humidity = weather?.main?.humidity;
+  const wind = weather?.wind?.speed;
+  const pressure = weather?.main?.pressure;
+  const condition = weather?.weather?.[0]?.main || "—";
+  const icon = weather?.weather?.[0]?.icon;
+
+  weatherTempEl.textContent = fmtInt(temp);
+  weatherLabelEl.textContent = condition;
+  weatherHumidityEl.textContent = typeof humidity === "number" ? `${humidity}%` : "—";
+  weatherWindEl.textContent = typeof wind === "number" ? `${wind.toFixed(1)} m/s` : "—";
+  weatherPressureEl.textContent = typeof pressure === "number" ? `${pressure} hPa` : "—";
+
+  if (icon) {
+    weatherIconEl.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    weatherIconEl.style.display = "block";
+  } else {
+    weatherIconEl.style.display = "none";
+  }
+}
+
+function renderAqiDashboard({ standardAqi, info, components, cityName, state, updatedAt, owAqi, weather }) {
+  pillEl.textContent = "AQI (IN)";
+  valueEl.textContent = standardAqi;
+  titleEl.textContent = info.label;
+  titleEl.className = `aqi-status-text aqi-status-${info.cls.replace("aqi-", "")}`;
+  pm25El.textContent = fmt(components?.pm2_5);
+  pm10El.textContent = fmt(components?.pm10);
+  pointerEl.style.left = `${pointerLeftPercent(standardAqi)}%`;
+  metaEl.textContent = `${cityName}, ${state} • Updated ${updatedAt} • OpenWeather ${owAqi}/5`;
+  renderWeather(weather);
 }
 
 async function geoToLatLon({ city, state }) {
@@ -224,6 +256,16 @@ async function fetchAirQuality({ lat, lon }) {
   return first;
 }
 
+async function fetchWeather({ lat, lon }) {
+  const apiKey = getApiKey();
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${encodeURIComponent(
+    lat
+  )}&lon=${encodeURIComponent(lon)}&units=metric&appid=${encodeURIComponent(apiKey)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Weather fetch failed (${res.status})`);
+  return res.json();
+}
+
 async function onFetchAqi() {
   setError("");
   placeholderEl.style.display = "none";
@@ -242,22 +284,27 @@ async function onFetchAqi() {
   setLoading(true);
   try {
     const { lat, lon, name } = await geoToLatLon({ city, state });
-    const air = await fetchAirQuality({ lat, lon });
+    const [air, weather] = await Promise.all([fetchAirQuality({ lat, lon }), fetchWeather({ lat, lon })]);
 
     const standardAqi = computeStandardAqi(air.components);
     if (typeof standardAqi !== "number") {
       throw new Error("Standard AQI could not be computed from available pollutant data.");
     }
     const info = aqiInfo(standardAqi);
-    pillEl.className = `aqi-pill ${info.cls}`;
-    pillEl.textContent = `AQI ${standardAqi}`;
-    titleEl.textContent = info.label;
+    pillEl.className = "aqi-main-unit";
 
     const ts = air.dt ? new Date(air.dt * 1000) : null;
     const when = ts ? ts.toLocaleString() : "—";
-    metaEl.textContent = `${name}, ${state} • Updated ${when} • OpenWeather index ${air.main.aqi}/5`;
-
-    renderPollutants(air.components);
+    renderAqiDashboard({
+      standardAqi,
+      info,
+      components: air.components,
+      cityName: name,
+      state,
+      updatedAt: when,
+      owAqi: air.main.aqi,
+      weather
+    });
     resultEl.style.display = "block";
   } catch (e) {
     placeholderEl.style.display = "block";
