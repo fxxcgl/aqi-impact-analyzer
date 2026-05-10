@@ -29,7 +29,14 @@
                 <p>Live spatial view of community-submitted pollution reports.</p>
             </div>
             <div id="mapStatus" class="helper map-status">Loading reports...</div>
-            <div id="pollutionMap"></div>
+            <div class="map-layout">
+                <div id="pollutionMap"></div>
+                <aside class="map-list card">
+                    <h2>Reported Areas</h2>
+                    <p class="helper">Newest reports appear first.</p>
+                    <ul id="reportList" class="report-list"></ul>
+                </aside>
+            </div>
         </div>
     </section>
 

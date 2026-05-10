@@ -1,4 +1,5 @@
 const mapStatusEl = document.getElementById("mapStatus");
+const reportListEl = document.getElementById("reportList");
 const map = L.map("pollutionMap").setView([20.5937, 78.9629], 5);
 const markersLayer = L.layerGroup().addTo(map);
 
@@ -18,6 +19,26 @@ function escapeHtml(value) {
 
 function setStatus(message) {
   mapStatusEl.textContent = message;
+}
+
+function listItemTemplate(report) {
+  const time = new Date(report.timestamp).toLocaleString();
+  return `
+    <li>
+      <div class="report-list-location">${escapeHtml(report.locationLabel || report.location)}</div>
+      <div>${escapeHtml(report.pollutionType)}</div>
+      <div class="report-list-meta">${escapeHtml(time)}</div>
+    </li>
+  `;
+}
+
+function renderReportList(reports) {
+  if (!reportListEl) return;
+  if (!reports.length) {
+    reportListEl.innerHTML = "<li>No mapped reports yet.</li>";
+    return;
+  }
+  reportListEl.innerHTML = reports.map(listItemTemplate).join("");
 }
 
 function markerPopup(report) {
@@ -41,8 +62,7 @@ async function refreshMapReports() {
   try {
     const reports = await window.PollutionApi.listReports();
     markersLayer.clearLayers();
-
-    const bounds = [];
+    const mappedReports = [];
     reports.forEach((report) => {
       const lat = report?.coordinates?.latitude;
       const lon = report?.coordinates?.longitude;
@@ -50,16 +70,17 @@ async function refreshMapReports() {
 
       const marker = L.marker([lat, lon]).bindPopup(markerPopup(report));
       marker.addTo(markersLayer);
-      bounds.push([lat, lon]);
+      mappedReports.push(report);
     });
+    renderReportList(mappedReports);
 
-    if (bounds.length > 0) {
-      map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
-      setStatus(`${reports.length} report(s) mapped. Auto-refreshing every 10 seconds.`);
+    if (mappedReports.length > 0) {
+      setStatus(`${mappedReports.length} report(s) mapped. Auto-refreshing every 10 seconds.`);
     } else {
       setStatus("No reports yet. Submit one from the Report Pollution page.");
     }
   } catch (error) {
+    renderReportList([]);
     setStatus(error?.message || "Could not refresh pollution map.");
   }
 }

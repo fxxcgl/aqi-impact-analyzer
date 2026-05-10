@@ -512,6 +512,48 @@ footer {
     margin-bottom: 12px;
 }
 
+.map-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.map-list {
+    padding: 22px;
+    max-height: 560px;
+    overflow-y: auto;
+}
+
+.map-list h2 {
+    color: #16a34a;
+    margin-bottom: 4px;
+}
+
+.report-list {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.report-list li {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.report-list-location {
+    font-weight: 600;
+    color: #111827;
+}
+
+.report-list-meta {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
 .popup-wrap {
     max-width: 260px;
 }
@@ -528,4 +570,14 @@ footer {
     object-fit: cover;
     border-radius: 10px;
     margin-top: 8px;
+}
+
+@media (max-width: 1000px) {
+    .map-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .map-list {
+        max-height: 380px;
+    }
 }
