@@ -496,3 +496,36 @@ footer {
 .report-submit {
     margin-top: 4px;
 }
+
+/* ===================================================
+   POLLUTION MAP
+=================================================== */
+#pollutionMap {
+    width: 100%;
+    height: 560px;
+    border-radius: 18px;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.map-status {
+    margin-bottom: 12px;
+}
+
+.popup-wrap {
+    max-width: 260px;
+}
+
+.popup-meta {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.popup-image {
+    width: 100%;
+    max-height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 8px;
+}

@@ -1,4 +1,3 @@
-const REPORT_STORAGE_KEY = "pollution_reports";
 const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 
 const formEl = document.getElementById("pollutionReportForm");
@@ -30,20 +29,6 @@ function showSuccess(message) {
   }
   successEl.style.display = "block";
   successEl.textContent = message;
-}
-
-function loadReports() {
-  try {
-    const raw = localStorage.getItem(REPORT_STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveReports(reports) {
-  localStorage.setItem(REPORT_STORAGE_KEY, JSON.stringify(reports));
 }
 
 function readImageAsDataUrl(file) {
@@ -92,7 +77,7 @@ imageEl.addEventListener("change", async () => {
   }
 });
 
-formEl.addEventListener("submit", (event) => {
+formEl.addEventListener("submit", async (event) => {
   event.preventDefault();
   showError("");
   showSuccess("");
@@ -106,20 +91,25 @@ formEl.addEventListener("submit", (event) => {
     return;
   }
 
-  const report = {
-    id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
-    location,
-    pollutionType,
-    description,
-    imageEvidence: selectedImageDataUrl || null,
-    submittedAt: new Date().toISOString()
-  };
+  const submitButton = formEl.querySelector("button[type='submit']");
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
 
-  const reports = loadReports();
-  reports.push(report);
-  saveReports(reports);
+  try {
+    await window.PollutionApi.submitReport({
+      location,
+      pollutionType,
+      description,
+      imageEvidence: selectedImageDataUrl || null
+    });
 
-  formEl.reset();
-  clearImagePreview();
-  showSuccess("Report submitted successfully. Thank you for helping track pollution.");
+    formEl.reset();
+    clearImagePreview();
+    showSuccess("Report submitted and added to the pollution map.");
+  } catch (error) {
+    showError(error?.message || "Failed to submit report.");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Report";
+  }
 });
