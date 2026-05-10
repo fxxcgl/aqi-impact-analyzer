@@ -603,12 +603,31 @@ footer {
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
     gap: 20px;
-    background: linear-gradient(180deg, #2a1d12 0%, #a8682f 100%);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.14) 0%, rgba(255, 255, 255, 0.7) 45%, rgba(220, 252, 231, 0.45) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 28px;
-    padding: 28px;
-    color: #fff;
-    box-shadow: 0 24px 40px rgba(0, 0, 0, 0.16);
+    padding: 20px 22px;
+    color: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 22px 36px rgba(15, 23, 42, 0.14);
     margin-bottom: 24px;
+}
+
+.aqi-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.5), transparent 45%),
+                radial-gradient(circle at 88% 80%, rgba(22, 163, 74, 0.15), transparent 35%);
+    pointer-events: none;
+}
+
+.aqi-hero-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .aqi-live {
@@ -622,7 +641,7 @@ footer {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #ff7a3d;
+    background: #16a34a;
 }
 
 .aqi-main-row {
@@ -633,14 +652,15 @@ footer {
 }
 
 .aqi-main-value {
-    font-size: 74px;
+    font-size: 62px;
     line-height: 1;
     font-weight: 800;
+    color: #14532d;
 }
 
 .aqi-main-unit {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.85);
+    color: #4b5563;
 }
 
 .aqi-health-row {
@@ -679,7 +699,7 @@ footer {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.9);
+    color: #4b5563;
 }
 
 .aqi-scale-bar {
@@ -696,18 +716,18 @@ footer {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 3px solid #fff;
-    background: rgba(255, 255, 255, 0.18);
+    border: 3px solid #ffffff;
+    background: rgba(22, 163, 74, 0.35);
     transform: translateX(-50%);
     left: 0;
 }
 
 .aqi-hero-weather {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.75);
     border-radius: 20px;
-    padding: 18px;
-    backdrop-filter: blur(2px);
+    padding: 14px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .aqi-weather-main {
@@ -722,26 +742,28 @@ footer {
 }
 
 .aqi-weather-temp {
-    font-size: 42px;
+    font-size: 34px;
     font-weight: 700;
+    color: #14532d;
 }
 
 .aqi-weather-label {
-    font-size: 18px;
-    opacity: 0.95;
+    font-size: 16px;
+    color: #374151;
 }
 
 .aqi-weather-grid {
-    margin-top: 14px;
+    margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
     font-weight: 600;
+    color: #1f2937;
 }
 
 .aqi-weather-k {
     font-size: 12px;
-    opacity: 0.8;
+    color: #6b7280;
 }
 
 @media (max-width: 1000px) {
