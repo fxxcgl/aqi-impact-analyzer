@@ -586,8 +586,8 @@ footer {
    CURSOR-LIKE DARK THEME OVERRIDES
 =================================================== */
 body {
-    background: #111827;
-    color: #e5e7eb;
+    background: #0d0d0d;
+    color: #f5f5f5;
 }
 
 nav,
@@ -596,9 +596,9 @@ footer,
 .result-card,
 .chart-card,
 .stat-card {
-    background: #1f2937;
-    color: #e5e7eb;
-    border: 1px solid #374151;
+    background: #1a1a1a;
+    color: #f5f5f5;
+    border: 1px solid #2e2e2e;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
@@ -611,7 +611,7 @@ footer,
 .page-header h1,
 .hero h1,
 .map-list h2 {
-    color: #60a5fa;
+    color: #ffffff;
 }
 
 nav a,
@@ -626,16 +626,16 @@ footer,
 .popup-meta,
 .report-list-meta,
 .stat-card p {
-    color: #9ca3af;
+    color: #b3b3b3;
 }
 
 .control,
 .card input,
 textarea,
 select {
-    background: #111827;
-    color: #e5e7eb;
-    border: 1px solid #4b5563;
+    background: #111111;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
 }
 
 .control:focus,
@@ -643,48 +643,50 @@ select {
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: #60a5fa;
-    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+    border-color: #6a6a6a;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
 }
 
 .analyze-btn,
 .primary-btn {
-    background: #2563eb;
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #3b3b3b;
 }
 
 .analyze-btn:hover,
 .primary-btn:hover {
-    background: #1d4ed8;
+    background: #3a3a3a;
 }
 
 .secondary-btn {
-    background: #111827;
-    color: #e5e7eb;
-    border-color: #4b5563;
+    background: #141414;
+    color: #f5f5f5;
+    border-color: #3a3a3a;
 }
 
 .secondary-btn:hover {
-    background: #1f2937;
+    background: #222222;
 }
 
 #pollutionMap {
-    border-color: #4b5563;
+    border-color: #333333;
 }
 
 .pollutant,
 .report-list li {
-    background: #111827;
-    border-color: #374151;
+    background: #141414;
+    border-color: #2f2f2f;
 }
 
 .report-list-location,
 .pollutant-value,
 .aqi-title {
-    color: #f3f4f6;
+    color: #ffffff;
 }
 
 .report-list-type {
-    color: #cbd5e1;
+    color: #d1d1d1;
 }
 
 .report-list-empty {
