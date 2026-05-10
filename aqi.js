@@ -67,6 +67,16 @@ const weatherLabelEl = document.getElementById("weatherLabel");
 const weatherHumidityEl = document.getElementById("weatherHumidity");
 const weatherWindEl = document.getElementById("weatherWind");
 const weatherPressureEl = document.getElementById("weatherPressure");
+const hasAnalyzerDom =
+  stateSelect &&
+  citySelect &&
+  fetchBtn &&
+  apiKeyInput &&
+  saveKeyBtn &&
+  clearKeyBtn &&
+  placeholderEl &&
+  errorEl &&
+  resultEl;
 
 function setError(message) {
   if (!message) {
@@ -315,6 +325,7 @@ async function onFetchAqi() {
 }
 
 function populateStates() {
+  if (!stateSelect || !citySelect || !fetchBtn) return;
   const states = Object.keys(INDIA_STATE_CITIES).sort((a, b) => a.localeCompare(b));
   stateSelect.innerHTML = `<option value="">Select state / UT</option>${states
     .map((s) => `<option value="${s}">${s}</option>`)
@@ -325,6 +336,7 @@ function populateStates() {
 }
 
 function populateCitiesForState(state) {
+  if (!citySelect || !fetchBtn || !placeholderEl || !resultEl) return;
   const cities = INDIA_STATE_CITIES[state] || [];
   citySelect.innerHTML = `<option value="">Select city</option>${cities
     .map((c) => `<option value="${c}">${c}</option>`)
@@ -336,43 +348,45 @@ function populateCitiesForState(state) {
   setError("");
 }
 
-stateSelect.addEventListener("change", () => {
-  populateCitiesForState(stateSelect.value);
-});
+if (hasAnalyzerDom) {
+  stateSelect.addEventListener("change", () => {
+    populateCitiesForState(stateSelect.value);
+  });
 
-citySelect.addEventListener("change", () => {
-  fetchBtn.disabled = citySelect.disabled || !citySelect.value;
-  placeholderEl.style.display = "block";
-  resultEl.style.display = "none";
-  setError("");
-});
+  citySelect.addEventListener("change", () => {
+    fetchBtn.disabled = citySelect.disabled || !citySelect.value;
+    placeholderEl.style.display = "block";
+    resultEl.style.display = "none";
+    setError("");
+  });
 
-fetchBtn.addEventListener("click", onFetchAqi);
+  fetchBtn.addEventListener("click", onFetchAqi);
 
 function syncKeyUi() {
   const key = getApiKey();
   apiKeyInput.value = key ? "••••••••••••••••" : "";
 }
 
-saveKeyBtn.addEventListener("click", () => {
-  const raw = (apiKeyInput.value || "").trim();
-  if (!raw || raw.includes("•")) {
-    setError("Paste your real API key, then click “Save Key”.");
-    return;
-  }
-  localStorage.setItem(STORAGE_KEY, raw);
-  setError("");
+  saveKeyBtn.addEventListener("click", () => {
+    const raw = (apiKeyInput.value || "").trim();
+    if (!raw || raw.includes("•")) {
+      setError("Paste your real API key, then click “Save Key”.");
+      return;
+    }
+    localStorage.setItem(STORAGE_KEY, raw);
+    setError("");
+    syncKeyUi();
+  });
+
+  clearKeyBtn.addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY);
+    apiKeyInput.value = "";
+    setError("");
+    placeholderEl.style.display = "block";
+    resultEl.style.display = "none";
+  });
+
+  populateStates();
   syncKeyUi();
-});
-
-clearKeyBtn.addEventListener("click", () => {
-  localStorage.removeItem(STORAGE_KEY);
-  apiKeyInput.value = "";
-  setError("");
-  placeholderEl.style.display = "block";
-  resultEl.style.display = "none";
-});
-
-populateStates();
-syncKeyUi();
+}
 
