@@ -586,8 +586,8 @@ footer {
    CURSOR-LIKE DARK THEME OVERRIDES
 =================================================== */
 body {
-    background: #0d0d0d;
-    color: #f5f5f5;
+    background: #0d0d0d !important;
+    color: #f5f5f5 !important;
 }
 
 nav,
@@ -596,9 +596,9 @@ footer,
 .result-card,
 .chart-card,
 .stat-card {
-    background: #1a1a1a;
-    color: #f5f5f5;
-    border: 1px solid #2e2e2e;
+    background: #1a1a1a !important;
+    color: #f5f5f5 !important;
+    border: 1px solid #2e2e2e !important;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
@@ -611,7 +611,7 @@ footer,
 .page-header h1,
 .hero h1,
 .map-list h2 {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 nav a,
@@ -626,7 +626,7 @@ footer,
 .popup-meta,
 .report-list-meta,
 .stat-card p {
-    color: #b3b3b3;
+    color: #b3b3b3 !important;
 }
 
 .control,
@@ -649,24 +649,24 @@ select:focus {
 
 .analyze-btn,
 .primary-btn {
-    background: #2a2a2a;
-    color: #ffffff;
-    border: 1px solid #3b3b3b;
+    background: #2a2a2a !important;
+    color: #ffffff !important;
+    border: 1px solid #3b3b3b !important;
 }
 
 .analyze-btn:hover,
 .primary-btn:hover {
-    background: #3a3a3a;
+    background: #3a3a3a !important;
 }
 
 .secondary-btn {
-    background: #141414;
-    color: #f5f5f5;
-    border-color: #3a3a3a;
+    background: #141414 !important;
+    color: #f5f5f5 !important;
+    border-color: #3a3a3a !important;
 }
 
 .secondary-btn:hover {
-    background: #222222;
+    background: #222222 !important;
 }
 
 #pollutionMap {
@@ -687,6 +687,19 @@ select:focus {
 
 .report-list-type {
     color: #d1d1d1;
+}
+
+nav {
+    background: #1a1a1a !important;
+}
+
+nav a,
+.logo {
+    color: #f5f5f5 !important;
+}
+
+nav a:hover {
+    color: #ffffff !important;
 }
 
 .report-list-empty {
