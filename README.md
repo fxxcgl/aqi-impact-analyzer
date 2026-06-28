@@ -47,7 +47,7 @@ With an empty Supabase config, the form and map use `/api/reports` on that serve
 - ## Team
 This is a collaborative college project by:
 
-| Name |
+| Name | Role |
 |------|
 | Aditi Raj Sharma | Team Leader |
 | Vishnu | 
