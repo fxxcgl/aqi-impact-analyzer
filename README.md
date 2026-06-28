@@ -44,3 +44,14 @@ With an empty Supabase config, the form and map use `/api/reports` on that serve
 - **GitHub Pages + Supabase:** The browser geocodes the location (OpenStreetMap Nominatim), then saves latitude, longitude, and a server timestamp (and optional image) via Supabase REST.
 - **Local Node:** Same UX; the server geocodes and appends to `data/reports.json`.
 - **Map:** `pollution-map.html` loads markers from Supabase or the API and refreshes every 10 seconds.
+- ## Team
+This is a collaborative college project by:
+
+| Name |
+|------|
+| Aditi Raj Sharma | Team Leader |
+| Vishnu | 
+| Aryan Kasaudhan | 
+| Richa Singh | 
+| Saurabh Singh Rajput | 
+| Avinendra Kumar | 
